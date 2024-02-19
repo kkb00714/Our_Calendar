@@ -30,7 +30,7 @@ class CalendarView(generic.ListView):
         
         return context
     
-    def get_date(req_day):
+    def get_date(self, req_day):
         if req_day:
             year, month = (int(x) for x in req_day.split('-'))
             # 입력받은 날짜를 하이픈으로 분리. 
