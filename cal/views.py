@@ -10,7 +10,8 @@ from .utils import Calendar
 
 class CalendarView(generic.ListView):
     model = Event
-    template_name = 'cal/calendar.html' # 템플릿 파일 경로 지정
+    template_name = 'cal/cal.html' 
+    # 템플릿 파일 경로 지정
     # DB에서 달력에 보여줄 이벤트를 가져오는 view
     # 이 view는 cal/calendar.html 파일과 연결
 

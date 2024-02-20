@@ -6,5 +6,5 @@ from . import views
 app_name = 'cal'
 
 urlpatterns = [
-    path('', views.CalendarView.as_view(), name='calendar'),
+    path('calendar/', views.CalendarView.as_view(template_name = 'cal/cal.html'), name='calendar'),
 ]
