@@ -4,16 +4,18 @@ from django.http import HttpResponse
 from django.views import generic
 from django.utils.safestring import mark_safe
 
-from datetime import datetime
+from datetime import datetime, timedelta
+import calendar
+
 from .models import *
 from .utils import Calendar
 
 class CalendarView(generic.ListView):
     model = Event
-    template_name = 'cal/cal.html' 
+    template_name = 'cal/cal_base.html' 
     # 템플릿 파일 경로 지정
     # DB에서 달력에 보여줄 이벤트를 가져오는 view
-    # 이 view는 cal/calendar.html 파일과 연결
+    # 이 view는 cal/cal_base.html 파일과 연결
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,6 +31,10 @@ class CalendarView(generic.ListView):
         # mark_safe 함수를 사용하여 HTML코드를 안전하게 처리하고 
         # context를 달력에 전달
         
+        # 기능1 (이전 달, 다음 달으로 넘어가기)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        
         return context
     
     def get_date(self, req_day):
@@ -42,3 +48,16 @@ class CalendarView(generic.ListView):
             # 사용자가 요청한 날짜를 파싱하여 datetime 객체로 변환
         return datetime.today()
             # 날짜가 없으면 현재 날짜를 가져와서 datetime 객체를 반환
+
+def prev_month(d): # 주어진 날짜의 이전 달 계산
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+def next_month(d): # 주어진 날짜의 다음 달 계산
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month' + str(next_month.year) + '-' + str(next_month.month)
+    return month
