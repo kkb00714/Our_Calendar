@@ -38,26 +38,40 @@ class CalendarView(generic.ListView):
         return context
     
     def get_date(self, req_day):
-        if req_day:
-            year, month = (int(x) for x in req_day.split('-'))
-            # 입력받은 날짜를 하이픈으로 분리. 
-            # 분리된 문자열을 숫자로 변환하여 연도, 월로 변환(정수)하여
-            # 연도와 월을 나타내는 튜플 생성
-            
-            return datetime(year, month, day=1)
-            # 사용자가 요청한 날짜를 파싱하여 datetime 객체로 변환
-        return datetime.today()
-            # 날짜가 없으면 현재 날짜를 가져와서 datetime 객체를 반환
+        try:
+            if req_day:
+                year, month, day = (int(x) for x in req_day.split('-'))
+                # 입력받은 날짜를 하이픈으로 분리. 
+                # 분리된 문자열을 숫자로 변환하여 연도, 월로 변환(정수)하여
+                # 연도와 월을 나타내는 튜플 생성
+                
+                return datetime(year, month, day=1)
+                # 사용자가 요청한 날짜를 파싱하여 datetime 객체로 변환
+        except (ValueError, TypeError):
+            # ValueError, TypeError예외가 발생할 경우 처리 (pass)
+            # 요청 날짜가 잘못된 형식일 때 발생
+            pass
+        return datetime.today().date()
 
 def prev_month(d): # 주어진 날짜의 이전 달 계산
     first = d.replace(day=1)
+    # 입력받은 날짜 'd' 의 첫 번째 날을 나타내는 새로운 datetime 객체(first) 생성
+
     prev_month = first - timedelta(days=1)
-    month = 'month' + str(prev_month.year) + '-' + str(prev_month.month)
+    # first에서 하루를 빼서 이전 달의 마지막 날을 나타내는 새로운 datetime 객체(prev_month) 생성
+
+    month = 'day=' + str(prev_month.year) + '-' + str(prev_month.month) + '-' + str(prev_month.day)
+    # prev_month의 연 월 일을 문자열로 변환하여 반환
     return month
 
 def next_month(d): # 주어진 날짜의 다음 달 계산
     days_in_month = calendar.monthrange(d.year, d.month)[1]
+    # 현재 월, 일 수를 계산
+
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
-    month = 'month' + str(next_month.year) + '-' + str(next_month.month)
+        # 현재 월의 마지막 날짜로부터 1일 뒤의 날짜를 게산하여 다음 달의 첫 번째 날을 구함
+
+    month = 'day=' + str(next_month.year) + '-' + str(next_month.month) + '-' + str(next_month.day)
+    # 다음 달의 연 월 일을 문자열로 변환하여 반환
     return month
