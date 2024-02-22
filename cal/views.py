@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.utils.safestring import mark_safe
@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import calendar
 
 from .models import *
+# from .forms import EventForm
 from .utils import Calendar
 
 class CalendarView(generic.ListView):
@@ -75,3 +76,16 @@ def next_month(d): # 주어진 날짜의 다음 달 계산
     month = 'day=' + str(next_month.year) + '-' + str(next_month.month) + '-' + str(next_month.day)
     # 다음 달의 연 월 일을 문자열로 변환하여 반환
     return month
+
+
+# 일정 추가
+
+# def create_event(request):
+#     if request.method == 'POST':
+#         form = EventForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('calendar')
+#     else:
+#         form = EventForm()
+#     return render(request, 'cal/cal_form.html', {'form': form})
