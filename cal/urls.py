@@ -7,4 +7,5 @@ app_name = 'cal'
 
 urlpatterns = [
     path('calendar/', views.CalendarView.as_view(template_name = 'cal/cal.html'), name='calendar'),
+    path('event_form/', views.add_event, name='event_form'),
 ]

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import calendar
 
 from .models import *
-# from .forms import EventForm
+from .forms import EventForm
 from .utils import Calendar
 
 class CalendarView(generic.ListView):
@@ -35,6 +35,9 @@ class CalendarView(generic.ListView):
         # 기능1 (이전 달, 다음 달으로 넘어가기)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
+        
+        context['form'] = EventForm()
+        # EventForm을 템플릿에 전달
         
         return context
     
@@ -80,12 +83,21 @@ def next_month(d): # 주어진 날짜의 다음 달 계산
 
 # 일정 추가
 
-# def create_event(request):
-#     if request.method == 'POST':
-#         form = EventForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('calendar')
-#     else:
-#         form = EventForm()
-#     return render(request, 'cal/cal_form.html', {'form': form})
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        # POST 요청일 때, 사용자로부터 입력된 데이터를 EventForm으로 바인딩.
+        # *바인딩 : 특정한 데이터를 폼 객체와 연결하는 과정.
+        #           => 받은 데이터를 폼 객체의 필드에 채워넣는 것.
+        if form.is_valid():
+            form.save()
+            # 폼이 유효한 경우,폼을 저장하고 일정 추가
+
+            return redirect('calendar')
+            # 일정 추가에 성공하면 전체 캘린더 페이지로 이동
+    else:
+        form = EventForm()
+        # POST 요청이 아니라면, 다시 입력하는 곳으로 돌아감
+    return render(request, 'cal_form.html', {'form': form})
+    # 템플릿을 렌더링하여 사용자에게 보여줌 (form 은 템플릿에서 폼을 사용하기 위한 변수임) 
+
