@@ -93,11 +93,11 @@ def add_event(request):
             form.save()
             # 폼이 유효한 경우,폼을 저장하고 일정 추가
 
-            return redirect('calendar')
+            return redirect('cal:calendar')
             # 일정 추가에 성공하면 전체 캘린더 페이지로 이동
     else:
         form = EventForm()
         # POST 요청이 아니라면, 다시 입력하는 곳으로 돌아감
-    return render(request, 'cal_form.html', {'form': form})
+    return render(request, 'cal/cal_form.html', {'form': form})
     # 템플릿을 렌더링하여 사용자에게 보여줌 (form 은 템플릿에서 폼을 사용하기 위한 변수임) 
 

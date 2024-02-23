@@ -2,9 +2,11 @@
 
 {% block content %}
 <div class="clearfix">
-	<a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>
-    <a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> Next Month </a>
+	<a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> 저번 달 </a>
+    <a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> 다음 달 </a>
+    <a class="btn btn-primary add-event-btn" href="{% url 'cal:eventform' %}">일정 추가</a>
 </div>
 
 {{ calendar }}
+
 {% endblock %}
