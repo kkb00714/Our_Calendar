@@ -36,8 +36,14 @@ class CalendarView(generic.ListView):
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         
-        context['form'] = EventForm()
-        # EventForm을 템플릿에 전달
+        form = EventForm()
+        # 이벤트 추가 폼 생성
+        
+        title = form['title'].value()
+        # 폼 데이터를 이용하여 제목(title) 가져오기
+        
+        context['title'] = title
+        # 제목을 context에 추가
         
         return context
     
