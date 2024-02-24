@@ -4,11 +4,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-app_name = 'cal'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cal.urls')), # cal 앱의 URL 패턴을 메인으로 설정
-    
+    path('', include('cal.urls')),
+    path('accounts/',  include('accounts.urls')), 
 ]
 
