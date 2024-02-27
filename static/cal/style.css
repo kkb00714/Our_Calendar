@@ -59,7 +59,7 @@ a {
 }
 
 .add-event-btn {
-    margin: 10px; /* 버튼과 캘린더 사이의 간격 조절 */
+    margin: 20px; /* 버튼과 캘린더 사이의 간격 조절 */
     display: inline-block; /* 인라인 요소로 표시되도록 설정 */
     padding: 10px 20px; /* 내부 여백 설정 */
     font-size: 16px; /* 글꼴 크기 설정 */
@@ -71,5 +71,25 @@ a {
 }
 
 .add-event-btn:hover {
+    background-color: #7d80c4; /* 마우스 호버 시 배경색 변경 */
+}
+
+.logout-btn {
+    outline: none;
+    color: black;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+    margin: 10px; /* 로그아웃 버튼과 캘린더 사이의 간격 조절 */
+    display: inline-block; /* 인라인 요소로 표시되도록 설정 */
+    padding: 10px 20px; /* 내부 여백 설정 */
+    font-size: 16px; /* 글꼴 크기 설정 */
+    background-color: #28a745; /* 배경색 설정 */
+    color: white; /* 글자색 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 버튼 모서리를 둥글게 설정 */
+}
+
+.logout-btn:hover {
     background-color: #7d80c4; /* 마우스 호버 시 배경색 변경 */
 }
