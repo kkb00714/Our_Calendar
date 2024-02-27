@@ -13,3 +13,7 @@ class Register(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'nickname', 'phone', 'address', 'birthday')
         
+
+class Login(forms.Form):
+    username = forms.CharField(max_length=128, label='아이디(usename)')
+    password = forms.CharField(max_length=128, widget=forms.PasswordInput(), label='비밀번호')
