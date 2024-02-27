@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 
 from .forms import Register, Login
@@ -36,3 +36,8 @@ def user_login(request):
     else:
         form = Login()
     return render(request, 'accounts/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, '로그아웃 되었습니다.')
+    return redirect('accounts:login')
