@@ -2,9 +2,16 @@
 
 {% block content %}
 <div class="clearfix">
-	<a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> 저번 달 </a>
+    <a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> 저번 달 </a>
     <a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> 다음 달 </a>
-    <a class="btn btn-primary add-event-btn" href="{% url 'cal:eventform' %}">일정 추가</a>
+</div>
+
+<div class="clearfix">
+    <a class="btn btn-success left" href="{% url 'cal:eventform' %}">일정 추가</a>
+    
+    {% if request.user.is_authenticated %}
+    <a class="btn btn-success right" href="{% url 'accounts:logout' %}">로그아웃</a>
+    {% endif %}
 </div>
 
 {{ calendar }}

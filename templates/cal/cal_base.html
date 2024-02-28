@@ -36,10 +36,6 @@
     {% block script %}
     {% endblock %}
 
-    {% if request.user.is_authenticated %}
-
-    <a href="{% url 'accounts:logout' %}" class="btn logout-btn">로그아웃</a>
-    {% endif %}
 
 </body>
 </html>
